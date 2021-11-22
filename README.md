@@ -1,5 +1,5 @@
 # Chrome Password Stealer V.2
-This is a modified version of Chrome Stealer for Ducky, originally written by (I plan to insert the original author, but I am having trouble find them)
+This is a modified version of Chrome Stealer for Ducky, originally written by (@nuk3leus)
 
 ## What It Does
 
