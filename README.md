@@ -38,7 +38,7 @@ If anyone would like to edit this payload or fork it and edit it to work better,
 
    GitHub: [GitHub](https://github.com/spragginsdesigns)
 
-   <img src="D:\Owner\Pictures\Spraggins Designs New Logo\Spraggins Designs Cover Logo Wide.jpg" alt="Spraggins Designs Cover Logo Wide" style="zoom:100%;" />
+   <img src="Spraggins Designs Logo/Spraggins Designs Cover Logo Wide.jpg" alt="Spraggins Designs Cover Logo Wide" style="zoom:100%;" />
 
    
 
